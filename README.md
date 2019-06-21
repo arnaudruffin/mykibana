@@ -1,0 +1,1 @@
+Kibana docker image adapted from https://github.com/elastic/kibana-docker
