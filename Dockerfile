@@ -24,12 +24,13 @@ ENV ELASTIC_CONTAINER true
 ENV PATH=/usr/share/kibana/bin:$PATH
 
 # Set some Kibana configuration defaults.
-COPY --chown=1000:0 config/kibana.yml /usr/share/kibana/config/kibana.yml
+COPY config/kibana.yml /usr/share/kibana/config/kibana.yml
+RUN sudo chown -R 1000:0 /usr/share/kibana/config/kibana.yml
 
 # Add the launcher/wrapper script. It knows how to interpret environment
 # variables and translate them to Kibana CLI options.
-COPY --chown=1000:0 bin/kibana-docker /usr/local/bin/
-
+COPY bin/kibana-docker /usr/local/bin/
+RUN sudo chown -R 1000:0 /usr/local/bin/
 
 # Ensure gid 0 write permissions for Openshift.
 RUN find /usr/share/kibana -gid 0 -and -not -perm /g+w -exec chmod g+w {} \;
