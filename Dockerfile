@@ -1,6 +1,10 @@
 FROM centos:7
 EXPOSE 5601
 
+
+
+
+
 # Add Reporting dependencies.
 RUN yum update -y && yum install -y fontconfig freetype && yum clean all
 
@@ -10,7 +14,7 @@ WORKDIR /usr/share/kibana
 # This is needed, for example, for Openshift Open:
 # https://docs.openshift.org/latest/creating_images/guidelines.html
 # and allows Kibana to run with an uid
-RUN curl -Ls {{ url_root }}/{{ tarball }} | tar --strip-components=1 -zxf - && \
+RUN curl -Ls https://artifacts.elastic.co/downloads/kibana/kibana-7.1.1-linux-x86_64.tar.gz | tar --strip-components=1 -zxf - && \
     ln -s /usr/share/kibana /opt/kibana && \
     chown -R 1000:0 . && \
     chmod -R g=u /usr/share/kibana && \
